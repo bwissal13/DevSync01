@@ -1,17 +1,19 @@
 package org.example.services;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import org.example.entities.User;
 import org.example.repository.user.UserRepository;
+import org.example.repository.user.UserRepositoryImpl;
 
 import java.util.List;
 import java.util.Optional;
-@ApplicationScoped
+
 public class UserService {
 
-    @Inject
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService() {
+        this.userRepository = new UserRepositoryImpl();
+    }
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -37,4 +39,5 @@ public class UserService {
             throw new RuntimeException("User not found for ID: " + id);
         }
     }
+
 }
